@@ -15,5 +15,8 @@ The following parameters can be appended to the application URL using query stri
 
 Append parameters using `?` for the first parameter and `&` for subsequent parameters:
 
-```text
-https://lindenkron.github.io/wowchatoverlay/?channel=lindenkron&name_color=true&badges=important_sub
+`https://lindenkron.github.io/wowchatoverlay/?channel=lindenkron&name_color=true&badges=important_sub`
+
+- **Step 1:** Add browser source to OBS.
+- **Step 2:** Add your link, and set height/width (do not stretch the source by dragging corners).
+- **Step 3:** Interact with the Browser Source, hover over the middle and press login. Authorize the app.
