@@ -1,0 +1,60 @@
+#login,
+#logout {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+
+    padding: 0.25rem;
+    border-radius: 5px;
+    color: white;
+
+    font-family: 'Arial Narrow';
+    font-size: 20px;
+    letter-spacing: 1px;
+    user-select: none;
+}
+
+#login {
+    background-color: #944cff;
+}
+
+#login .image {
+    height: 30px;
+    width: 30px;
+
+    background-image: url('../assets/twitch_logo.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#login .text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#login:hover {
+    background-color: #9d6ee2;
+    cursor: pointer;
+}
+
+#login:active {
+    background-color: #944cff;
+}
+
+#logout {
+    background-color: grey;
+}
+
+
+#logout:hover {
+    background-color: rgb(156, 153, 153);
+    cursor: pointer;
+}
+
+#logout:active {
+    background-color: grey;
+}
