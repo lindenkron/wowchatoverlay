@@ -16,4 +16,4 @@ The following parameters can be appended to the application URL using query stri
 Append parameters using `?` for the first parameter and `&` for subsequent parameters:
 
 ```text
-https://lindenkron.github.com/wowchatoverlay/?channel=lindenkron&name_color=true&badges=important_sub
+https://lindenkron.github.io/wowchatoverlay/?channel=lindenkron&name_color=true&badges=important_sub
