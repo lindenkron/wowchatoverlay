@@ -89,21 +89,19 @@ class TwitchAuth {
         const params = new URLSearchParams(hash);
         const token = params.get('access_token');
 
-        // Restore original parameters that the user attempted to visit before being redirected to oauth twitch
-        const query = sessionStorage.getItem(this.parameters_storage_key);
-        if (query) {
-            this.saveToken(token);
+        if (token) this.saveToken(token);
 
-            // cleanup
-            history.replaceState(
-                {},
-                document.title,
-                window.location.pathname + query
-            );
+        // Restore original parameters
+        const query = sessionStorage.getItem(this.parameters_storage_key) || '';
 
-            parameters.load(window.location.href);
-            sessionStorage.removeItem(this.parameters_storage_key);
-        };
+        history.replaceState(
+            {},
+            document.title,
+            window.location.pathname + (query || window.location.search)
+        );
+
+        parameters.load(window.location.href);
+        sessionStorage.removeItem(this.parameters_storage_key);
 
         return token;
     };
