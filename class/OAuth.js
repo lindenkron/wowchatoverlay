@@ -2,7 +2,7 @@ import { parameters } from './ParametersManager.js';
 
 class TwitchAuth {
     constructor() {
-        this.client_id = '0sef40u80dogcf8ljwn059z1m5fh39';
+        this.client_id = 'r4ps7sz3ulpfg03o7tzni1p6vrifwv';
         this.redirect_uri = 'https://lindenkron.github.io/wowchatoverlay/';
         this.scopes = ['user:read:email'];
         this.channel = null;
