@@ -20,6 +20,10 @@
     height: auto;
 }
 
+.chat .message .colon {
+    margin-left: -4px;
+}
+
 .chat .message .name {
     display: flex;
     align-items: center;

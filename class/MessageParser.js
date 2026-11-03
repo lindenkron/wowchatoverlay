@@ -35,7 +35,7 @@ export default class MessageParser {
             `<span class="message ${this.getClassType(group_type)} ${type}">` +
                 this.renderChatChannel(group_type) +
                 this.renderUsername() +
-                `${type}: ` +
+                `${type}<span class="colon">:</span>` +
                 parsed +
             `</span>`
         );
