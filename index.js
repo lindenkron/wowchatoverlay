@@ -17,6 +17,10 @@ $('#login').on('click', () => {
 $('#logout').on('click', () => {
     twitch.logout();
 });
+let paused = false;
+$('#pause').on('click', () => {
+    paused = !paused;
+});
 
 // Store options from url parameters
 parameters.load(window.location.href);
@@ -53,9 +57,19 @@ if(authed) {
 
 async function ChatOnMessage(broadcaster_id) {
     chat.on('message', async (channel, tags, message, self) => {
+        if(paused) return;
         // Exclude all messages by known bots
         const is_bot = tags.badges?.['bot-badge'];
         if(is_bot) return;
+
+        // Exclude custom bot usernames.
+        const bots = (parameters.get('bots') || '')
+            .toLowerCase()
+            .split(',')
+            .map(bot => bot.trim())
+            .filter(Boolean);
+        if (bots.includes(tags.username.toLowerCase())) return;
+
 
         // Exclude all messages by exclude parameter (&exclude=mybot,theirbot)
         const exclude = (parameters.get('exclude') || '').split(',').map(s => s.trim()).filter(Boolean);

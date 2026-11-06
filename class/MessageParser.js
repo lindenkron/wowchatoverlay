@@ -12,24 +12,35 @@ export default class MessageParser {
         this.badges = tags.badges;
 
         this.broadcaster = !!tags.badges?.broadcaster;
-        this.moderator = tags.mod;
-        this.subscriber = tags.subscriber;
-        this.regular = tags['returning-chatter'];
-        this.first_message = tags['first-msg'];
-        this.partner = tags['badges']?.partner;
-        this.vip = tags['vip'];
+        this.moderator = !!tags.mod;
+        this.subscriber = !!tags.subscriber;
+        this.regular = !!tags['returning-chatter'];
+        this.first_message = !!tags['first-msg'];
+        this.partner = !!tags.badges?.partner;
+        this.vip = !!tags.vip;
 
         this.display_name = tags['display-name'];
         this.username = tags['username'];
     };
 
     async parse(message, tags) {
+        // Unable to join party/raid due to higher rank
+        const eligible = !(
+            this.broadcaster ||
+            this.moderator ||
+            this.subscriber ||
+            this.vip ||
+            this.partner
+        );
+        tracker.addMessage(this.username, eligible);
+
         const parsed = this.parseString(message);
         const group_type = tracker.getUserStatus(this.username);
-        let type = this.getChatType(message); // This is skipped 
 
-        // Don't add whisper or yell if a person is guild, raid or party.
-        if (this.moderator || this.subscriber || group_type) type = '';
+        let type = this.getChatType(message);
+
+        // Don't add whisper or yell if a person is privileged or in a party.
+        if (!eligible || group_type) type = '';
 
         return (
             `<span class="message ${this.getClassType(group_type)} ${type}">` +

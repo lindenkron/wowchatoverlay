@@ -1,6 +1,8 @@
 @import 'fonts.css';
 @import 'oauth.css';
 @import 'chat.css';
+@import 'https://library.lindenkron.dk/fontawesome/css/fontawesome.css';
+@import 'https://library.lindenkron.dk/fontawesome/css/all.css';
 
 html, body {
     display: flex;
@@ -28,4 +30,22 @@ html, body {
     gap: 1rem;
     opacity: 0;
     z-index: 100;
+}
+
+.pause {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    border-radius: 0.2rem;
+    border: 1px solid black;
+    font-size: 28px;
+    cursor: pointer;
+    aspect-ratio: 1;
+    height: 28px;
+}
+
+
+.pause:hover {
+    background-color: rgb(255, 205, 112);
 }

@@ -16,9 +16,20 @@ class TrackerManager {
         this.message_count = parameters.get('group_quantity') || 10;
     };
 
-    addMessage(username) {
-        const now = Date.now();
+    addMessage(username, eligible = true) {
         username = username.toLowerCase();
+
+        // Remove ineligible users from party tracking.
+        if (!eligible) {
+            delete this.chatters[username];
+
+            const index = this.members.indexOf(username);
+            if (index !== -1) this.members.splice(index, 1);
+
+            return;
+        };
+
+        const now = Date.now();
 
         let list = this.chatters[username];
         if (!list) list = this.chatters[username] = [];

@@ -10,6 +10,7 @@ The following parameters can be appended to the application URL using query stri
 | `group_quantity` | Sentences needed to join | `integer 1-100` |  `10` |
 | `name_color` | Show Twitch name colors | `true false` | `false` |
 | `whispers` | Hide whisper type (Prime/VIP) | `true false` | `false` |
+| `bots` | Bots to hide (already auto hides tagged bots) | `fossabot,nightbot` |
 
 ### Example
 
