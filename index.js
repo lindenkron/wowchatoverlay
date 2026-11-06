@@ -57,7 +57,9 @@ if(authed) {
 
 async function ChatOnMessage(broadcaster_id) {
     chat.on('message', async (channel, tags, message, self) => {
+        // Don't proceed with any logging or message parsing if paused
         if(paused) return;
+        
         // Exclude all messages by known bots
         const is_bot = tags.badges?.['bot-badge'];
         if(is_bot) return;
@@ -69,7 +71,6 @@ async function ChatOnMessage(broadcaster_id) {
             .map(bot => bot.trim())
             .filter(Boolean);
         if (bots.includes(tags.username.toLowerCase())) return;
-
 
         // Exclude all messages by exclude parameter (&exclude=mybot,theirbot)
         const exclude = (parameters.get('exclude') || '').split(',').map(s => s.trim()).filter(Boolean);
@@ -89,6 +90,33 @@ async function ChatOnMessage(broadcaster_id) {
         if (messages.length > max_messages) messages.slice(0, messages.length -max_messages).remove();
         
         if (scrolled_down) chat.scrollTop(chat[0].scrollHeight);
+    });
+
+    // Only delete specific entry
+    chat.on('messagedeleted', (channel, username, deletedMessage, tags) => {
+        $('.message').filter(function () {
+            const element = $(this);
+            const name = element.find('.name span').text().toLowerCase();
+
+            // Connect each .text element together to a string.
+            const message = element.find('.text').map(function() {
+                return $(this).text();
+            }).get().join(' ');
+
+            return name === username.toLowerCase() && message === deletedMessage;
+        }).remove();
+    });
+
+    // Delete all messages from user
+    chat.on('timeout', (channel, username, reason, duration, tags) => {
+        $('.message').filter(function () {
+            return $(this).find('.name span').text().toLowerCase().includes(username.toLowerCase());
+        }).remove();
+    });
+    chat.on('ban', (channel, username, deletedMessage, tags) => {
+        $('.message').filter(function () {
+            return $(this).find('.name span').text().toLowerCase().includes(username.toLowerCase());
+        }).remove();
     });
 };
 
